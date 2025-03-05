@@ -18,4 +18,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Команда для запуска приложения
-CMD ["python", "task_7.py"]
+CMD ["python3","-m", "task_7.py"]
