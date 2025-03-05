@@ -4,7 +4,9 @@ services:
   db:
     image: postgres
     environment:
-      POSTGRES_DB: my_postgres
+      POSTGRES_DB: my_postgres      
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test1234
     ports:
       - "5432:5432"
     volumes:
@@ -15,7 +17,7 @@ services:
     restart: always
     healthcheck:
       test: >
-        sh -c "pg_isready --username=postgres --host=localhost"
+        sh -c "pg_isready --username=test_user --host=localhost"
       interval: 5s
       timeout: 5s
       retries: 3
