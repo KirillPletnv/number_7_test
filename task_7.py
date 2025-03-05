@@ -1,43 +1,14 @@
 import psycopg2
 from psycopg2 import sql
+from database import ProductBase
+from config import dbname, user, password, host, port
 import re
-import os
 
 
-class ProductBase:
+class BaseOps(ProductBase):
     def __init__(self, dbname, user, password, host, port, table_name='products'):
-        self.table_name = table_name
-        self.dbname = dbname
-        self.user = user
-        self.password = password
-        self.host = host
-        self.port = port
-        self.conn = self.connect_to_db()
-
-    def connect_to_db(self):
-        """Подключение к базе данных PostgreSQL."""
-        try:
-            conn = psycopg2.connect(
-                dbname=self.dbname,
-                user=self.user,
-                password=self.password,
-                host=self.host,
-                port=self.port)
-            return conn
-        except psycopg2.Error as e:
-        print(f"Ошибка подключения к базе данных: {e}")
-        raise
-
-    def create_table(self, tables_params):
-        """Создание таблицы, если она не существует."""
-        with self.conn as conn:
-            cursor = conn.cursor()
-            cursor.execute(tables_params)  # Без f-строки
-            table_name = re.search(r'CREATE TABLE IF NOT EXISTS (\w+)', tables_params)
-            if table_name:
-                self.table_name = table_name.group(1)
-            conn.commit()
-
+        super().__init__(dbname, user, password, host, port, table_name)
+    
     def show_all_products(self):
         """Вывод всей продукции из таблицы."""
         with self.conn as conn:
@@ -94,40 +65,3 @@ class ProductBase:
             else:
                 print("Товар не найден.")
 
-if __name__ == "__main__":
-    table_name = "products6" 
-    
-    tables_params = f'''CREATE TABLE IF NOT EXISTS {table_name} (
-                               id SERIAL PRIMARY KEY,
-                               name TEXT NOT NULL,
-                               price NUMERIC NOT NULL,
-                               quantity INTEGER NOT NULL)'''
-
-    dbname = os.environ["DB_NAME"]
-    user = os.environ["DB_USER"]
-    password = os.environ["DB_PASSWORD"]
-    host = os.environ["DB_HOST"]
-    port = os.environ["DB_PORT"]
-
-
-    db = ProductBase(dbname, user, password, host, port)
-
-    # Создание таблицы
-    db.create_table(tables_params)
-
-    # Добавление тестовых продуктов
-    db.add_test_products()
-
-    db.show_all_products()
-    print("--------------")
-
-    # Получение продуктов с количеством меньше 10
-    low_quantity_products = db.get_products_with_low_quantity(counts=10)
-    print("Продукты с количеством меньше 10:")
-    for product in low_quantity_products:
-        print(product)
-    print("--------------")
-
-    # Обновление цены продукта "Смартфон"
-    db.update_product_price("Смартфон", 35000)
-    print("Цена продукта 'Смартфон' обновлена.")
