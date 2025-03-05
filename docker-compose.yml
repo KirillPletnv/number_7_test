@@ -22,7 +22,7 @@ services:
     environment:
       HOST: database
       DB_NAME: my_postgres
-      DB_USERNAME: postgres
+      DB_USERNAME: test_user
       DB_PASSWORD: test1234
       PORT: 5432
     networks:
