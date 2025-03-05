@@ -1,6 +1,9 @@
 services:
   db:
-    image: postgres
+    context: .
+    dockerfile: DockerfileDB
+
+    
     container_name: database
     environment:
       DB_NAME: my_postgres
