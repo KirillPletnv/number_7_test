@@ -39,7 +39,7 @@ services:
     volumes:
       - .:/app
     user: "test_user"  
-    command: python3 -u -m task_7
+    command: python3 -u -m main.py
 
 volumes:
   script_db:
