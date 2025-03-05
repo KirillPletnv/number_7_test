@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   db:
     image: postgres
@@ -18,13 +20,13 @@ services:
       interval: 5s
       timeout: 5s
       retries: 3
-      
+
   base_script:
     build: .
     container_name: base_script
     depends_on:
       db:
-        condition: service_healthy    
+        condition: service_healthy
     environment:
       DB_HOST: db
       DB_NAME: my_postgres
@@ -34,11 +36,9 @@ services:
     networks:
       - script_net
     volumes:
-    user: "test_user"
       - .:/app
-    command: python3 -u -m task_7.py
-    
-
+    user: "test_user"  # Запуск от имени пользователя test_user
+    command: python3 -u -m task_7  # Убрано .py, так как используется -m
 
 volumes:
   script_db:
