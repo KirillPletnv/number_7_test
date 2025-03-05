@@ -16,11 +16,11 @@ services:
       - script_net
     restart: always
     healthcheck:
-      test: >
-        sh -c "pg_isready --username=test_user --host=localhost"
-      interval: 5s
+      healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "--quiet"]
+      interval: 1s
       timeout: 5s
-      retries: 3
+      retries: 10
 
   base_script:
     build: .
