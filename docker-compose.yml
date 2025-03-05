@@ -3,9 +3,9 @@ services:
     image: postgres
     container_name: database
     environment:
-      POSTGERS_DB: my_postgres
-      POSTGRES_USER: test_user
-      POSTGRES_PASSWORD: test1234
+      DB_NAME: my_postgres
+      DB_USERNAME: test_user
+      DB_PASSWORD: test1234
     ports:
       - "5432:5432"
     volumes:
