@@ -1,4 +1,4 @@
-CREATE DATABASE my_postgres;
+CREATE DATABASE my_postgres OWNER test_user;
 
 -- Создание пользователя и предоставление прав
 CREATE USER test_user WITH PASSWORD 'test1234';
