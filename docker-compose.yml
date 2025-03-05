@@ -18,7 +18,7 @@ services:
     build: .
     container_name: base_script
     depends_on:
-      - my_postgres
+      - db
     environment:
       HOST: database
       DB_NAME: my_postgres
