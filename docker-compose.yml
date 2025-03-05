@@ -14,7 +14,7 @@ services:
       - script_net
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres", "--quiet"]
+      test: ["pg_isready -h localhost "]
       interval: 1s
       timeout: 5s
       retries: 10
