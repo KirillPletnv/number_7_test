@@ -1,5 +1,5 @@
 from config import dbname, user, password, host, port
-from task7 import BaseOps
+from task_7 import BaseOps
 
 if __name__ == "__main__":
     table_name = "products6"     
