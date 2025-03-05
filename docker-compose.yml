@@ -5,6 +5,7 @@ services:
     image: postgres
     environment:
       POSTGRES_DB: my_postgres
+      POSTGRES_USER: test_user      
     ports:
       - "5432:5432"
     volumes:
@@ -14,7 +15,7 @@ services:
       - script_net
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready", "-q", "-d", "my_postgres", "-U", "postgres"]
+      test: pg_isready -d my_postgres -U test_user
       interval: 1s
       timeout: 5s
       retries: 10
@@ -36,8 +37,8 @@ services:
       - script_net
     volumes:
       - .:/app
-    user: "test_user"  # Запуск от имени пользователя test_user
-    command: python3 -u -m task_7  # Убрано .py, так как используется -m
+    user: "test_user"  
+    command: python3 -u -m task_7
 
 volumes:
   script_db:
