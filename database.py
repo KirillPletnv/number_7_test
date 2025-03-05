@@ -1,5 +1,6 @@
 import psycopg2
 from psycopg2 import sql
+import re
 
 class ProductBase:
     def __init__(self, dbname, user, password, host, port, table_name='products'):
