@@ -34,8 +34,10 @@ services:
     networks:
       - script_net
     volumes:
+    user: "test_user"
       - .:/app
-    command: python -u task_7.py 
+    command: python3 -u -m task_7.py
+    
 
 
 volumes:
