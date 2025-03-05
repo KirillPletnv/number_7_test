@@ -90,7 +90,6 @@ class ProductBase:
             else:
                 print("Товар не найден.")
 
-
 if __name__ == "__main__":
     table_name = "products6"
     tables_params = f'''CREATE TABLE IF NOT EXISTS {table_name} (
@@ -99,11 +98,12 @@ if __name__ == "__main__":
                                price NUMERIC NOT NULL,
                                quantity INTEGER NOT NULL)'''
 
-    dbname = os.getenv("DB_NAME")
-    user = os.getenv("DB_USER")
-    password = os.getenv("DB_PASSWORD")
-    host = os.getenv("DB_HOST")
-    port = os.getenv("DB_PORT")
+    dbname = os.environ["DB_NAME"]
+    user = os.environ["DB_USER"]
+    password = os.environ["DB_PASSWORD"]
+    host = os.environ["DB_HOST"]
+    port = os.environ["DB_PORT"]
+
 
     db = ProductBase(dbname, user, password, host, port)
 
