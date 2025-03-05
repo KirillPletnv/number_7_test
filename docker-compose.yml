@@ -1,6 +1,6 @@
 services:
   db:
-    context: .
+    build: .
     dockerfile: DockerfileDB
 
     
