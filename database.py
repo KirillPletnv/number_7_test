@@ -32,6 +32,6 @@ class ProductBase:
                 port=self.port)
             return conn
         except psycopg2.Error as e:
-        print(f"Ошибка подключения к базе данных: {e}")
-        raise
+            print(f"Ошибка подключения к базе данных: {e}")
+            raise
     
