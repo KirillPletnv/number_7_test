@@ -1,7 +1,6 @@
 services:
   db:
     image: postgres
-    container_name: database
     environment:
       POSTGRES_DB: my_postgres
       POSTGRES_USER: test_user
@@ -9,13 +8,13 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - script_db:/postgresql/data
+      - script_db:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - script_net
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready", "-U", "docker_app"]
+      test: ["CMD-SHELL", "pg_isready", "--fail", "-U", "test_user"]
       interval: 5s
       timeout: 5s
       retries: 3
@@ -29,20 +28,18 @@ services:
     environment:
       DB_HOST: db
       DB_NAME: my_postgres
-      DB_USERNAME: test_user
+      DB_USER: test_user
       DB_PASSWORD: test1234
       DB_PORT: 5432
     networks:
       - script_net
     volumes:
       - .:/app
-    command: python task_7.py
-    
+    command: python -u task_7.py 
 
 
 volumes:
   script_db:
-    name: script_db
 
 networks:
   script_net:
