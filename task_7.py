@@ -16,13 +16,17 @@ class ProductBase:
 
     def connect_to_db(self):
         """Подключение к базе данных PostgreSQL."""
-        conn = psycopg2.connect(
-            dbname=self.dbname,
-            user=self.user,
-            password=self.password,
-            host=self.host,
-            port=self.port)
-        return conn
+        try:
+            conn = psycopg2.connect(
+                dbname=self.dbname,
+                user=self.user,
+                password=self.password,
+                host=self.host,
+                port=self.port)
+            return conn
+        except psycopg2.Error as e:
+        print(f"Ошибка подключения к базе данных: {e}")
+        raise
 
     def create_table(self, tables_params):
         """Создание таблицы, если она не существует."""
@@ -91,7 +95,8 @@ class ProductBase:
                 print("Товар не найден.")
 
 if __name__ == "__main__":
-    table_name = "products6"
+    table_name = "products6" 
+    
     tables_params = f'''CREATE TABLE IF NOT EXISTS {table_name} (
                                id SERIAL PRIMARY KEY,
                                name TEXT NOT NULL,
