@@ -20,11 +20,11 @@ services:
     depends_on:
       - db
     environment:
-      HOST: database
+      DB_HOST: database
       DB_NAME: my_postgres
       DB_USERNAME: test_user
       DB_PASSWORD: test1234
-      PORT: 5432
+      DB_PORT: 5432
     networks:
       - script_net
     volumes:
