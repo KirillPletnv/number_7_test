@@ -12,6 +12,7 @@ class ProductBase:
         self.password = password
         self.host = host
         self.port = port
+        self.conn = self.connect_to_db()
 
     def connect_to_db(self):
         """Подключение к базе данных PostgreSQL."""
@@ -25,7 +26,7 @@ class ProductBase:
 
     def create_table(self, tables_params):
         """Создание таблицы, если она не существует."""
-        with self.connect_to_db() as conn:
+        with self.conn as conn:
             cursor = conn.cursor()
             cursor.execute(tables_params)  # Без f-строки
             table_name = re.search(r'CREATE TABLE IF NOT EXISTS (\w+)', tables_params)
@@ -35,7 +36,7 @@ class ProductBase:
 
     def show_all_products(self):
         """Вывод всей продукции из таблицы."""
-        with self.connect_to_db() as conn:
+        with self.conn as conn:
             cursor = conn.cursor()
             query = sql.SQL("SELECT * FROM {}").format(sql.Identifier(self.table_name))
             cursor.execute(query)
@@ -46,7 +47,7 @@ class ProductBase:
 
     def add_test_products(self):
         """Добавление тестовых продуктов в таблицу."""
-        with self.connect_to_db() as conn:
+        with self.conn as conn:
             cursor = conn.cursor()
             products = [
                 ("Ноутбук", 50000, 15),
@@ -67,7 +68,7 @@ class ProductBase:
 
     def get_products_with_low_quantity(self, counts=int(10)):
         """Получение продуктов с количеством меньше переданного значения."""
-        with self.connect_to_db() as conn:
+        with self.conn as conn:
             cursor = conn.cursor()
             query = sql.SQL("SELECT * FROM {} WHERE quantity < %s").format(sql.Identifier(self.table_name))
             cursor.execute(query, (counts,))
@@ -75,7 +76,7 @@ class ProductBase:
 
     def update_product_price(self, product_name, new_price):
         """Обновление цены продукта по имени."""
-        with self.connect_to_db() as conn:
+        with self.conn as conn:
             cursor = conn.cursor()
             update_query = sql.SQL("UPDATE {} SET price = %s WHERE name = %s").format(sql.Identifier(self.table_name))
             cursor.execute(update_query, (new_price, product_name))
