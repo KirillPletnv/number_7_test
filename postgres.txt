@@ -1,0 +1,3 @@
+POSTGRES_DB=my_postgres
+POSTGRES_USER=test_user
+POSTGRES_PASSWORD=test1234
