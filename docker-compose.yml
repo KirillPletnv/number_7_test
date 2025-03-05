@@ -5,7 +5,8 @@ services:
     image: postgres
     environment:
       POSTGRES_DB: my_postgres
-      
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test1234
       
     ports:
       - "5432:5432"
@@ -16,7 +17,7 @@ services:
       - script_net
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready", "--fail", "-U", "test_user"]
+      test: ["CMD-SHELL", "pg_isready", "--fail", "-U", "postgres"]
       interval: 5s
       timeout: 5s
       retries: 3
