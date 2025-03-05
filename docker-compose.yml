@@ -29,11 +29,9 @@ services:
       db:
         condition: service_healthy
     environment:
-      DB_HOST: db
-      DB_NAME: my_postgres
-      DB_USER: test_user
-      DB_PASSWORD: test1234
-      DB_PORT: 5432
+      POSTGRES_PASSWORD_FILE: /run/secrets/scripts_connect_data
+    secrets:
+      - scripts_connect_data   
     networks:
       - script_net
     volumes:
