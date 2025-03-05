@@ -29,9 +29,11 @@ services:
       db:
         condition: service_healthy
     environment:
-      POSTGRES_PASSWORD_FILE: /run/secrets/scripts_connect_data
-    secrets:
-      - scripts_connect_data   
+      DB_NAME: ${POSTGRES_DB}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
     networks:
       - script_net
     volumes:
