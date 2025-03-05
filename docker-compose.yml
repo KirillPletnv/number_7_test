@@ -20,7 +20,7 @@ services:
     depends_on:
       - db
     environment:
-      DB_HOST: database
+      DB_HOST: db
       DB_NAME: my_postgres
       DB_USERNAME: test_user
       DB_PASSWORD: test1234
