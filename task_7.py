@@ -12,7 +12,6 @@ class ProductBase:
         self.password = password
         self.host = host
         self.port = port
-        self.conn = self.connect_to_db()
 
     def connect_to_db(self):
         """Подключение к базе данных PostgreSQL."""
