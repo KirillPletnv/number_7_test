@@ -1,7 +1,0 @@
-FROM postgres:latest
-
-# Копируем скрипт инициализации
-COPY init.sql /docker-entrypoint-initdb.d/
-
-# Меняем владельца скрипта на пользователя postgres
-RUN chown postgres:postgres /docker-entrypoint-initdb.d/init.sql
