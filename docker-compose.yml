@@ -12,20 +12,13 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - script_net
-    restart: always
-    healthcheck:
-      test: pg_isready -d my_postgres -U test_user
-      interval: 1s
-      timeout: 5s
-      retries: 10
-      
+    restart: always      
 
   base_script:
     build: .
     container_name: base_script
     depends_on:
-      db:
-        condition: service_healthy
+      - db        
     environment:
       DB_NAME: ${POSTGRES_DB}
       DB_USER: ${POSTGRES_USER}
